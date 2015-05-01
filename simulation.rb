@@ -32,13 +32,7 @@ class Simulation
 			print "Tick ", @ticks,"\n"
 
 			@building.run
-			print @elevator.to_s
-
-
-
-			clock_tick
-
-			puts
+			
 		end
 
 		print "Ran ",@ticks," ticks before finished, floors and elevators empty"
