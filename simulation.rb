@@ -20,8 +20,6 @@ class Simulation
 	end
 
 	def start(options = {})
-		p "Start"
-		print @elevator.to_s, "\n"
 
 		add_floors
 		add_rand_person_floor(@elevator,@num_people)
@@ -32,17 +30,6 @@ class Simulation
 			print "Tick ", @ticks,"\n"
 
 			@building.run
-			print @elevator.to_s
-
-			if(@elevator.state==1) 
-				print "Trying to go Up\n"
-			else 
-				print "Trying to go Down \n"
-			end
-
-			if @ticks == 6
-				add_rand_person_floor(@elevator,5)
-			end
 
 			clock_tick
 
