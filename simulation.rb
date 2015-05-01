@@ -20,9 +20,9 @@ class Simulation
 	end
 
 	def start(options = {})
+		p "Start"
+		print @elevator.to_s, "\n"
 
-		add_floors
-		add_rand_person_floor(@elevator,@num_people)
 
 		@building = Building.new(:floors=>@floors,:elevator=>@elevator)
 
@@ -39,12 +39,6 @@ class Simulation
 		print "Ran ",@ticks," ticks before finished, floors and elevators empty"
 		puts
 
-	end
-
-	def add_floors
-		(1..@num_floor).each do |i|
-			@floors << Floor.new(@elevator)
-		end
 	end
 
 
