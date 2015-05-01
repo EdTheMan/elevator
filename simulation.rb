@@ -29,17 +29,9 @@ class Simulation
 		@building = Building.new(:floors=>@floors,:elevator=>@elevator)
 
 		while @ticks < @max_ticks && ((@elevator.passengers.length > 0) || !@floors[0].people_queue.empty? || !@floors[1].people_queue.empty? || !@floors[2].people_queue.empty?)
-			print "Tick ", @ticks,"\n"
 
-			@building.run
-			print @elevator.to_s
-
-			if(@elevator.state==1) 
-				print "Trying to go Up\n"
-			else 
-				print "Trying to go Down \n"
-			end
-
+			print_and_run
+			
 			if @ticks == 6
 				add_rand_person_floor(@elevator,5)
 			end
@@ -52,6 +44,19 @@ class Simulation
 		print "Ran ",@ticks," ticks before finished, floors and elevators empty"
 		puts
 
+	end
+
+	def print_and_run
+		print "Tick ", @ticks,"\n"
+
+		@building.run
+		print @elevator.to_s
+
+		if(@elevator.state==1) 
+			print "Trying to go Up\n"
+		else 
+			print "Trying to go Down \n"
+		end
 	end
 
 	def add_floors
