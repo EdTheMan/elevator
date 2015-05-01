@@ -17,8 +17,9 @@ attr_accessor :people_queue
 		@elevator.call(floor)
 	end
 
-	def add_person(person)
+	def add_person(person,elevator)
 		people_queue << person
+		person.call_elevator(elevator)
 	end
 
 	def to_s
