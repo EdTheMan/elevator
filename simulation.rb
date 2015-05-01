@@ -5,10 +5,14 @@ require './Elevator.rb'
 
 class Simulation
 
-	def initialize
-		@elevator = []
+	def initialize(options = {})
+
 		@ticks = 1
-		@floors = []
+		@num_floor = options[:num_floor]
+		@num_people = options[:num_people]
+		@max_ticks = options[:ticks]
+		@elevator = Elevator.new(:floor_count=>@num_floor,:top_floor=>@num_people)
+		@floors = Array.new
 	end
 
 	def clock_tick
@@ -19,20 +23,15 @@ class Simulation
 		p "Start"
 		print @elevator.to_s, "\n"
 
-		@elevator = Elevator.new(:floor_count=>options[:num_floor],:top_floor=>options[:num_people])
-
-		@floors = Array.new
-
-		(1..options[:num_floor]).each do |i|
+		(1..@num_floor).each do |i|
 			@floors << Floor.new(@elevator)
 		end
 
-		add_rand_person_floor(@elevator,options[:num_people])
+		add_rand_person_floor(@elevator,@num_people)
 
 		@building = Building.new(:floors=>@floors,:elevator=>@elevator)
 
-
-		while @ticks < options[:ticks] && ((@elevator.passengers.length > 0) || !@floors[0].people_queue.empty? || !@floors[1].people_queue.empty? || !@floors[2].people_queue.empty?)
+		while @ticks < @max_ticks && ((@elevator.passengers.length > 0) || !@floors[0].people_queue.empty? || !@floors[1].people_queue.empty? || !@floors[2].people_queue.empty?)
 			print "Tick ", @ticks,"\n"
 
 
