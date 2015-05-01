@@ -23,6 +23,8 @@ class Simulation
 		p "Start"
 		print @elevator.to_s, "\n"
 
+		add_floors
+		add_rand_person_floor(@elevator,@num_people)
 
 		@building = Building.new(:floors=>@floors,:elevator=>@elevator)
 
@@ -30,6 +32,17 @@ class Simulation
 			print "Tick ", @ticks,"\n"
 
 			@building.run
+			print @elevator.to_s
+
+			if(@elevator.state==1) 
+				print "Trying to go Up\n"
+			else 
+				print "Trying to go Down \n"
+			end
+
+			if @ticks == 6
+				add_rand_person_floor(@elevator,5)
+			end
 
 			clock_tick
 
@@ -41,11 +54,20 @@ class Simulation
 
 	end
 
+	def add_floors
+		(1..@num_floor).each do |i|
+			@floors << Floor.new(@elevator)
+		end
+	end
+
 
 	def add_rand_person_floor(elevator,num_people)
 		@people = create_rand_people(num_people)
 		@people.each do |person|
 			@rand = rand((@floors.length)-1)
+			if(person.intended_floor == (@rand+1))
+				next
+			end
 			@floors[@rand].add_person(person,@elevator)
 		print "Added person at floor ", @rand+1, " and he wants to go to floor " , person.intended_floor, "\n"
 		end
