@@ -7,7 +7,7 @@ attr_accessor :calls
 ELEV_MAX_PERSONS = 10
 
 	def initialize(options = {})
-
+		#@state = 1 means moving up, 0 means moving down
 		@calls = 0
 		@passengers = []
 		@current_floor = options[:current_floor] || default_current_floor
